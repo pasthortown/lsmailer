@@ -64,7 +64,46 @@
     <div class="col-12">
       <div class="form-group">
         <label>Adjuntos</label>
-        ADJUNTOS
+        <table class="table table-hover mt-2">
+          <thead>
+            <th colspan="3">
+              <button type="button" class="btn btn-dark btn-sm" (click)="fileInput.click()">
+                <i class="fas fa-upload"></i>
+              </button>
+            </th>
+          </thead>
+          <thead>
+            <th>
+              Archivo
+            </th>
+            <th>
+              Tipo
+            </th>
+            <th>
+              Opciones
+            </th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let attachment of Attachments">
+              <td>
+                <input type="text" class="form-control" placeholder="Prueba.txt" [(ngModel)]="attachment.name">
+              </td>
+              <td>
+                {{attachment.type}}
+              </td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-dark" (click)="downloadAttachment(attachment)">
+                    <i class="fas fa-download"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="deleteAttachment(attachment)">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -72,12 +111,75 @@
     <h3 class="col-12">
       Destino del Mensaje
     </h3>
+    <div class="col-12">
+      <table class="table table-hover mt-2">
+        <thead>
+          <th colspan="3">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-success btn-sm" (click)="addDestiny()">
+                <i class="fas fa-user-plus"></i>
+              </button>
+              <button type="button" class="btn btn-dark btn-sm" (click)="fileInputCSV.click()">
+                <i class="fas fa-upload"></i>
+              </button>
+              <button type="button" class="btn btn-dark btn-sm" (click)="downloadDestinyList()">
+                <i class="fas fa-download"></i>
+              </button>
+            </div>
+          </th>
+        </thead>
+        <thead>
+          <th>
+            Correo Destino
+          </th>
+          <th>
+            Alias
+          </th>
+          <th>
+            Estado
+          </th>
+          <th>
+            Opciones
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let destiny of DestinyList">
+            <td>
+              <input type="email" class="form-control" placeholder="name@example.com" [(ngModel)]="destiny.ToEmail">
+            </td>
+            <td>
+              <input type="text" class="form-control" placeholder="Sr. Jhon Smith" [(ngModel)]="destiny.ToAlias">
+            </td>
+            <td>
+              <span class="badge badge-secondary" *ngIf="destiny.status == ''">Pendiente</span>
+              <span class="badge badge-success" *ngIf="destiny.status == 'ok'">Enviado</span>
+              <span class="badge badge-danger" *ngIf="destiny.status == 'error'">Error</span>
+            </td>
+            <td>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-danger" (click)="deleteDestiny(destiny)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <div class="row mb-5">
+    <div class="col-12 mb-2 mt-2">
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{valueProgress}}%"></div>
+      </div>
+
+    </div>
     <div class="col-12 text-center">
-      <button type="button" class="btn btn-success">
+      <button type="button" class="btn btn-success" (click)="iniciarEnvio()">
         <i class="fas fa-mail-bulk"></i>&nbsp;Enviar
       </button>
     </div>
   </div>
 </div>
+<input type="file" class="form-control" id="fileInput" #fileInput name="fileInput" [hidden]="true" (change)="CodeFileAttachment($event)">
+<input type="file" class="form-control" id="fileInputCSV" #fileInputCSV accept="*.csv" name="fileInputCSV" [hidden]="true" (change)="CodeFileDestinyList($event)">

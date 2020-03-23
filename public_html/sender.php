@@ -48,9 +48,12 @@ function enviarMail($FromEmail, $FromAlias, $FromClave, $ReplyEmail, $ReplyAlias
         $mail->addReplyTo( $ReplyEmail, $ReplyAlias );
         $mail->addAddress($ToEmail, $ToAlias);
         $mail->Subject = $Asunto;
-        $mail->msgHTML($Mensaje);
+        $new_Mensaje = $Mensaje;
+        $new_Mensaje = str_ireplace("##to_alias##", $ToAlias, $new_Mensaje);
+        $new_Mensaje = str_ireplace("##to_email##", $ToEmail, $new_Mensaje);
+        $mail->msgHTML($new_Mensaje);
         foreach($Attchments as $attachment) {
-            $mail->addAttachment($attachment['name'], 'base64', $attachment['type']);
+            $mail->AddStringAttachment(base64_decode($attachment['data']), $attachment['name'], 'base64', $attachment['type']);
         }
         $EstadoEnvio = $mail->send();
     }catch (Exception $e) {
@@ -73,4 +76,6 @@ $Mensaje = $args['Mensaje'];
 $Asunto = $args['Asunto'];
 $Attchments = $args['Attchments'];
 
-echo enviarMail($FromEmail, $FromAlias, $FromClave, $ReplyEmail, $ReplyAlias, $ToEmail, $ToAlias, $Mensaje, $Asunto, $Attchments);
+$respuesta = enviarMail($FromEmail, $FromAlias, $FromClave, $ReplyEmail, $ReplyAlias, $ToEmail, $ToAlias, $Mensaje, $Asunto, $Attchments);
+
+echo json_encode( ["respuesta" => $respuesta]);

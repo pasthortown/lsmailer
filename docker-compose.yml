@@ -4,18 +4,18 @@ networks:
   mailer_php:
     ipam:
       config:
-        - subnet: 172.28.0.0/24
+        - subnet: 172.30.0.0/24
 
 services:
   php:
     image: pasthortown/php5.6-apache:latest
     restart: always
     ports:
-    - "80:80"
+    - "8085:80"
     volumes:
     - ./public_html:/var/www/html
     networks:
       mailer_php:
-        ipv4_address: 172.28.0.10
+        ipv4_address: 172.30.0.10
     environment:
       PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:~/.composer/vendor/bin

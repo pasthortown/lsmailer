@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row mt-3">
+    <h1 class="col-12 text-right">
+      Mail Sender
+    </h1>
+  </div>
+  <div class="row">
+    <h3 class="col-12">
+      Datos de Envío
+    </h3>
+    <div class="col-12">
+      <div class="form-group">
+        <label>Dirección Email Origen</label>
+        <input type="email" class="form-control" id="FromEmail" [(ngModel)]="FromEmail" placeholder="name@example.com">
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <label>Clave de la cuenta de Email Origen</label>
+        <input type="password" class="form-control" id="FromClave" [(ngModel)]="FromClave" placeholder="12345678">
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <label>Alias Origen</label>
+        <input type="text" class="form-control" id="FromAlias" [(ngModel)]="FromAlias" placeholder="Enviador de Mails">
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <label>Dirección Email de Respuesta</label>
+        <input type="email" class="form-control" id="ReplyEmail" [(ngModel)]="ReplyEmail" placeholder="name@example.com">
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <label>Alias de Respuesta</label>
+        <input type="text" class="form-control" id="ReplyAlias" [(ngModel)]="ReplyAlias" placeholder="Enviador de Mails">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h3 class="col-12">
+      Datos del Mensaje
+    </h3>
+    <div class="col-12">
+      <div class="form-group">
+        <label>Asunto</label>
+        <input type="text" class="form-control" id="Asunto" [(ngModel)]="Asunto" placeholder="Asunto del correo">
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <label>Cuerpo del Correo</label>
+        <ck-editor id="Mensaje" name="Mensaje" skin="moono-lisa" [(ngModel)]="Mensaje"></ck-editor>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <label>Vista Previa</label>
+        <div id="preview" class="form-control" [innerHTML]="Mensaje"></div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <label>Adjuntos</label>
+        ADJUNTOS
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h3 class="col-12">
+      Destino del Mensaje
+    </h3>
+  </div>
+  <div class="row mb-5">
+    <div class="col-12 text-center">
+      <button type="button" class="btn btn-success">
+        <i class="fas fa-mail-bulk"></i>&nbsp;Enviar
+      </button>
+    </div>
+  </div>
+</div>
